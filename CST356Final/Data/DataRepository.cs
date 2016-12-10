@@ -16,8 +16,9 @@ namespace CST356Final.Data
             return _dataContext.Teachers.ToList();
         }
 
-        public void AddTeacher(Teacher teacher)
+        public void AddTeacher(Teacher teacher, string user)
         {
+            teacher.User = user;
             _dataContext.Teachers.Add(teacher);
             _dataContext.SaveChanges();
         }
@@ -45,8 +46,9 @@ namespace CST356Final.Data
             return _dataContext.Classes.ToList();
         }
 
-        public void AddClass(Class _class)
+        public void AddClass(Class _class, string user)
         {
+            _class.User = user;
             _dataContext.Classes.Add(_class);
             _dataContext.SaveChanges();
         }
@@ -74,8 +76,9 @@ namespace CST356Final.Data
             return _dataContext.Students.ToList();
         }
 
-        public void AddStudent(Student student)
+        public void AddStudent(Student student, string user)
         {
+            student.User = user;
             _dataContext.Students.Add(student);
             _dataContext.SaveChanges();
         }

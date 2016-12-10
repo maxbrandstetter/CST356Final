@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CST356Final", "CST356Final\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CST356Final.Tests", "CST356Final.Tests\CST356Final.Tests.csproj", "{4B776055-8F8F-4F74-A904-86BBB6C4B90C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalProjectService", "FinalProjectService\FinalProjectService.csproj", "{2B083F51-1728-4320-B0B7-A4D4B7A7BF58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4B776055-8F8F-4F74-A904-86BBB6C4B90C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B776055-8F8F-4F74-A904-86BBB6C4B90C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B776055-8F8F-4F74-A904-86BBB6C4B90C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B083F51-1728-4320-B0B7-A4D4B7A7BF58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B083F51-1728-4320-B0B7-A4D4B7A7BF58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B083F51-1728-4320-B0B7-A4D4B7A7BF58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B083F51-1728-4320-B0B7-A4D4B7A7BF58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

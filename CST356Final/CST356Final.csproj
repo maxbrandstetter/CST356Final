@@ -49,9 +49,22 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SimpleInjector, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.3.2\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.Web, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Integration.Web.3.3.2\lib\net40\SimpleInjector.Integration.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.Web.Mvc, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Integration.Web.Mvc.3.3.2\lib\net40\SimpleInjector.Integration.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -163,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\DependencyInjectionConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -186,6 +200,14 @@
     <Compile Include="Migrations\201612100005479_Class Update.Designer.cs">
       <DependentUpon>201612100005479_Class Update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612100116193_Model updates.cs" />
+    <Compile Include="Migrations\201612100116193_Model updates.Designer.cs">
+      <DependentUpon>201612100116193_Model updates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612100146226_Teacher Senior.cs" />
+    <Compile Include="Migrations\201612100146226_Teacher Senior.Designer.cs">
+      <DependentUpon>201612100146226_Teacher Senior.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Class.cs" />
@@ -194,6 +216,9 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxies\RESTClassProxy.cs" />
+    <Compile Include="Services\ITeacherService.cs" />
+    <Compile Include="Services\TeacherService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -284,6 +309,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612100005479_Class Update.resx">
       <DependentUpon>201612100005479_Class Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612100116193_Model updates.resx">
+      <DependentUpon>201612100116193_Model updates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612100146226_Teacher Senior.resx">
+      <DependentUpon>201612100146226_Teacher Senior.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

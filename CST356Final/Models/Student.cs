@@ -20,5 +20,7 @@ namespace CST356Final.Models
         [Display(Name = "Last Name")]
         [StringLength(32)]
         public string LastName { get; set; }
+
+        public string User { get; set; }
     }
 }

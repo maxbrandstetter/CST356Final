@@ -70,3 +70,13 @@ C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\obj\D
 C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\obj\Debug\CST356Final.Migrations.InitialCreate.resources
 C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\obj\Debug\CST356Final.csproj.GenerateResource.Cache
 C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\obj\Debug\CST356Final.Migrations.ClassUpdate.resources
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\bin\SimpleInjector.dll
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\bin\SimpleInjector.Integration.Web.dll
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\bin\SimpleInjector.Integration.Web.Mvc.dll
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\bin\SimpleInjector.xml
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\bin\SimpleInjector.Integration.Web.xml
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\bin\SimpleInjector.Integration.Web.Mvc.xml
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\obj\Debug\CST356Final.Migrations.Modelupdates.resources
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\obj\Debug\CST356Final.Migrations.TeacherSenior.resources
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\bin\System.Net.Http.Formatting.dll
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final\bin\System.Net.Http.Formatting.xml

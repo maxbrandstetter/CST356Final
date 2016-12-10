@@ -7,17 +7,40 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CST356Final.Models;
+using CST356Final.Data;
+using CST356Final.Services;
+using CST356Final.Proxies;
 
 namespace CST356Final.Controllers
 {
     public class ClassesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly IDataRepository _dataRepo;
+        private readonly IRestClassProxy _proxy;
+
+        public ClassesController(IDataRepository dataRepository, IRestClassProxy proxy)
+        {
+            _dataRepo = dataRepository;
+            _proxy = proxy;
+            _proxy.GetClassesAsync();
+        }
 
         // GET: Classes
         public ActionResult Index()
         {
-            return View(db.Classes.ToList());
+            var classes = new List<Class>();
+            var allClasses = _dataRepo.GetClasses();
+
+            foreach (Class _class in allClasses)
+            {
+                // If the current user is the user who posted the teacher, then add it
+                if (_class.User == User.Identity.Name)
+                {
+                    classes.Add(_class);
+                }
+            }
+
+            return View(classes);
         }
 
         // GET: Classes/Details/5
@@ -27,7 +50,7 @@ namespace CST356Final.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Class @class = db.Classes.Find(id);
+            Class @class = _dataRepo.GetClass(id.Value);
             if (@class == null)
             {
                 return HttpNotFound();
@@ -38,6 +61,7 @@ namespace CST356Final.Controllers
         // GET: Classes/Create
         public ActionResult Create()
         {
+            // Get students
             return View();
         }
 
@@ -50,11 +74,10 @@ namespace CST356Final.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Classes.Add(@class);
-                db.SaveChanges();
+                // Add students
+                _dataRepo.AddClass(@class, User.Identity.Name);
                 return RedirectToAction("Index");
             }
-
             return View(@class);
         }
 
@@ -65,7 +88,7 @@ namespace CST356Final.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Class @class = db.Classes.Find(id);
+            Class @class = _dataRepo.GetClass(id.Value);
             if (@class == null)
             {
                 return HttpNotFound();
@@ -80,13 +103,14 @@ namespace CST356Final.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ClassId,Subject,ClassNumber,ClassName")] Class @class)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Entry(@class).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(@class);
             }
-            return View(@class);
+
+            _dataRepo.UpdateClass(@class);
+
+            return RedirectToAction("Index");
         }
 
         // GET: Classes/Delete/5
@@ -96,11 +120,14 @@ namespace CST356Final.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Class @class = db.Classes.Find(id);
+            Class @class = _dataRepo.GetClass(id.Value);
             if (@class == null)
             {
                 return HttpNotFound();
             }
+
+            _dataRepo.RemoveClass(@class);
+
             return View(@class);
         }
 
@@ -109,19 +136,8 @@ namespace CST356Final.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Class @class = db.Classes.Find(id);
-            db.Classes.Remove(@class);
-            db.SaveChanges();
+            Class @class = _dataRepo.GetClass(id);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

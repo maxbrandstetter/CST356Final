@@ -1,4 +1,6 @@
 ﻿using CST356Final.Data;
+using CST356Final.Proxies;
+using CST356Final.Services;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
@@ -20,8 +22,10 @@ namespace CST356Final.App_Start
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
 
             // Register types
-            container.Register<IDataRepository, DataRepository>();
-            // REGISTER SERVICE HERE
+            container.Register<IDataRepository, DataRepository>(Lifestyle.Scoped);
+            // Register services
+            container.Register<ITeacherService, TeacherService>(Lifestyle.Scoped);
+            container.Register<IRestClassProxy, RestClassProxy>(Lifestyle.Scoped);
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
 

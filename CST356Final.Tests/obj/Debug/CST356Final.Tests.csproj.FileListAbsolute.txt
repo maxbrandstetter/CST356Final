@@ -53,3 +53,13 @@ C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests
 C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests\obj\Debug\CST356Final.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests\obj\Debug\CST356Final.Tests.dll
 C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests\obj\Debug\CST356Final.Tests.pdb
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests\bin\Debug\nunit.framework.dll
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests\bin\Debug\SimpleInjector.dll
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests\bin\Debug\SimpleInjector.Integration.Web.dll
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests\bin\Debug\SimpleInjector.Integration.Web.Mvc.dll
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests\bin\Debug\nunit.framework.xml
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests\bin\Debug\SimpleInjector.xml
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests\bin\Debug\SimpleInjector.Integration.Web.xml
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests\bin\Debug\SimpleInjector.Integration.Web.Mvc.xml
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Max\Documents\Visual Studio 2015\Projects\CST356Final\CST356Final.Tests\bin\Debug\System.Net.Http.Formatting.xml

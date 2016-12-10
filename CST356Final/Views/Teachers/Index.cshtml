@@ -5,12 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="well">
+    <h2>Teachers</h2>
+</div>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btn btn-primary" })
 </p>
-<table class="table">
+<table class="table table-hover table-striped table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
@@ -24,11 +26,14 @@
         <th>
             @Html.DisplayNameFor(model => model.YearsExperience)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Senior)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr class="contents">
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
@@ -42,11 +47,29 @@
             @Html.DisplayFor(modelItem => item.YearsExperience)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TeacherId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TeacherId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TeacherId })
+            @Html.DisplayFor(modelItem => item.Senior)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", null, new { id=item.TeacherId }, htmlAttributes: new { @class = "btn btn-info btn-xs" }) |
+            @Html.ActionLink("Details", "Details", null, new { id=item.TeacherId }, htmlAttributes: new { @class = "btn btn-info btn-xs" }) |
+            @Html.ActionLink("Delete", "Delete", null, new { id=item.TeacherId }, htmlAttributes: new { @class = "btn btn-info btn-xs" })
         </td>
     </tr>
 }
 
 </table>
+
+<div>
+    <button class="btn btn-primary" id="toggle">Toggle Contents</button>
+</div>
+
+@section scripts
+{
+    <script>
+    $(function () {
+        $("#toggle").click(function () {
+            $(".contents").toggle();
+        });
+    });
+    </script>
+}

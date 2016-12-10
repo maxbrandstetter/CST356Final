@@ -7,17 +7,41 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CST356Final.Models;
+using CST356Final.Data;
+using CST356Final.Services;
 
 namespace CST356Final.Controllers
 {
     public class TeachersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly IDataRepository _dataRepo;
+        private readonly ITeacherService _teacherService;
+
+        public TeachersController(IDataRepository dataRepository, ITeacherService teacherService)
+        {
+            _dataRepo = dataRepository;
+            _teacherService = teacherService;
+        }
 
         // GET: Teachers
         public ActionResult Index()
         {
-            return View(db.Teachers.ToList());
+            List<Teacher> teachers = new List<Teacher>();
+            var allTeachers = _dataRepo.GetTeachers();
+
+            foreach (Teacher teacher in allTeachers)
+            {
+                // If the current user is the user who posted the teacher, then add it
+                if (teacher.User == User.Identity.Name)
+                {
+                    teachers.Add(teacher);
+                }
+
+                // Check and set if the teacher is a senior
+                teacher.Senior = _teacherService.TeacherIsSenior(teacher);                
+            }
+
+            return View(teachers);
         }
 
         // GET: Teachers/Details/5
@@ -27,7 +51,7 @@ namespace CST356Final.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Teacher teacher = db.Teachers.Find(id);
+            Teacher teacher = _dataRepo.GetTeacher(id.Value);
             if (teacher == null)
             {
                 return HttpNotFound();
@@ -38,6 +62,7 @@ namespace CST356Final.Controllers
         // GET: Teachers/Create
         public ActionResult Create()
         {
+            // Get classes
             return View();
         }
 
@@ -46,12 +71,18 @@ namespace CST356Final.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TeacherId,FirstName,LastName,EmailAddress,YearsExperience")] Teacher teacher)
+        public ActionResult Create([Bind(Include = "TeacherId,FirstName,LastName,EmailAddress,YearsExperience")] Teacher teacher, List<int> classIds)
         {
             if (ModelState.IsValid)
             {
-                db.Teachers.Add(teacher);
-                db.SaveChanges();
+                /* Add classes
+                teacher.Classes = new List<Class>();
+                foreach (var classId in classIds)
+                {
+
+                }
+                */
+                _dataRepo.AddTeacher(teacher, User.Identity.Name);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +96,7 @@ namespace CST356Final.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Teacher teacher = db.Teachers.Find(id);
+            Teacher teacher = _dataRepo.GetTeacher(id.Value);
             if (teacher == null)
             {
                 return HttpNotFound();
@@ -80,13 +111,14 @@ namespace CST356Final.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TeacherId,FirstName,LastName,EmailAddress,YearsExperience")] Teacher teacher)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Entry(teacher).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(teacher);
             }
-            return View(teacher);
+
+            _dataRepo.UpdateTeacher(teacher);
+
+            return RedirectToAction("Index");
         }
 
         // GET: Teachers/Delete/5
@@ -96,11 +128,14 @@ namespace CST356Final.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Teacher teacher = db.Teachers.Find(id);
+            Teacher teacher = _dataRepo.GetTeacher(id.Value);
             if (teacher == null)
             {
                 return HttpNotFound();
             }
+
+            _dataRepo.RemoveTeacher(teacher);
+
             return View(teacher);
         }
 
@@ -109,19 +144,8 @@ namespace CST356Final.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Teacher teacher = db.Teachers.Find(id);
-            db.Teachers.Remove(teacher);
-            db.SaveChanges();
+            Teacher teacher = _dataRepo.GetTeacher(id);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

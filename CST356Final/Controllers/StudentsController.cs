@@ -7,17 +7,35 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CST356Final.Models;
+using CST356Final.Data;
 
 namespace CST356Final.Controllers
 {
     public class StudentsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly IDataRepository _dataRepo;
+
+        public StudentsController(IDataRepository dataRepository)
+        {
+            _dataRepo = dataRepository;
+        }
 
         // GET: Students
         public ActionResult Index()
         {
-            return View(db.Students.ToList());
+            List<Student> students = new List<Student>();
+            var allStudents = _dataRepo.GetStudents();
+
+            foreach (Student student in allStudents)
+            {
+                // If the current user is the user who posted the teacher, then add it
+                if (student.User == User.Identity.Name)
+                {
+                    students.Add(student);
+                }
+            }
+
+            return View(students);
         }
 
         // GET: Students/Details/5
@@ -27,7 +45,7 @@ namespace CST356Final.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
+            Student student = _dataRepo.GetStudent(id.Value);
             if (student == null)
             {
                 return HttpNotFound();
@@ -38,6 +56,7 @@ namespace CST356Final.Controllers
         // GET: Students/Create
         public ActionResult Create()
         {
+
             return View();
         }
 
@@ -50,8 +69,7 @@ namespace CST356Final.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Students.Add(student);
-                db.SaveChanges();
+                _dataRepo.AddStudent(student, User.Identity.Name);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +83,7 @@ namespace CST356Final.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
+            Student student = _dataRepo.GetStudent(id.Value);
             if (student == null)
             {
                 return HttpNotFound();
@@ -80,13 +98,14 @@ namespace CST356Final.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StudentId,FirstName,LastName")] Student student)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Entry(student).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(student);
             }
-            return View(student);
+
+            _dataRepo.UpdateStudent(student);
+
+            return RedirectToAction("Index");
         }
 
         // GET: Students/Delete/5
@@ -96,11 +115,14 @@ namespace CST356Final.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
+            Student student = _dataRepo.GetStudent(id.Value);
             if (student == null)
             {
                 return HttpNotFound();
             }
+
+            _dataRepo.RemoveStudent(student);
+
             return View(student);
         }
 
@@ -109,19 +131,8 @@ namespace CST356Final.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Student student = db.Students.Find(id);
-            db.Students.Remove(student);
-            db.SaveChanges();
+            Student student = _dataRepo.GetStudent(id);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

@@ -27,5 +27,7 @@ namespace CST356Final.Models
         public string ClassName { get; set; }
 
         public List<Student> Students { get; set; }
+
+        public string User { get; set; }
     }
 }
